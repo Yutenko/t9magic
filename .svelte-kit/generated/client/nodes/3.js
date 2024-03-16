@@ -1,1 +1,1 @@
-export { default as component } from "../../../../src/routes/keypad/+page.svelte";
+export { default as component } from "../../../../src/routes/embed/+page.svelte";

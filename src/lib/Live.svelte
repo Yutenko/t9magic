@@ -4,13 +4,9 @@
 
     export let code;
 
-    const DOMAIN = "https://zauberwilli.de";
-    let endpoint = `${DOMAIN}/t9magic/codes/${code}.json`;
+    const endpoint = `/api?code=${code}`;
 
-    let data = {
-        time: 1710517952688,
-        t9: "486335673",
-    };
+    let data = {    };
 
     async function poll() {
         const response = await fetch(endpoint);
@@ -22,6 +18,7 @@
     let interval = null;
 
     onMount(async () => {
+        poll();
         setInterval(poll, 1000);
         return () => {
             if (interval) {

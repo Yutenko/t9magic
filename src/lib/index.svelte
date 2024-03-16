@@ -1,21 +1,21 @@
 <script>
     import { onMount } from "svelte";
 
-    const DOMAIN = "https://zauberwilli.de";
-    let endpoint = `${DOMAIN}/t9magic/api.php`;
+    let endpoint = `/api`;
 
     let livecodes = [];
 
     async function poll() {
         const response = await fetch(endpoint);
-        const json = await response.json();
+        const data = await response.json();
 
-        data = json;
+        livecodes = data.codes;
     }
 
     let interval = null;
 
     onMount(async () => {
+        poll();
         setInterval(poll, 1000);
         return () => {
             if (interval) {
@@ -29,7 +29,7 @@
     {#each livecodes as live}
         <div class="card card-compact shadow">
             <div class="card-body">
-                <a href={`/live/${live.t9}`} class="text-5xl">{live.t9}</a>
+                <a href={`/live/${live}`} class="text-5xl">{live}</a>
             </div>
         </div>
     {/each}
@@ -37,5 +37,5 @@
 
 <div class="absolute right-5 bottom-5">
     <a class="btn btn-ghost" href="/qrcodegen">QR</a>
-    <a class="btn btn-ghost" href="/keypad">KEYPAD</a>
+    <a class="btn btn-ghost" href="/wordgen">WORDGEN</a>
 </div>

@@ -1,7 +1,9 @@
 <script>
-    import Wordlist from "./Wordlist.svelte";
+    import { createEventDispatcher } from "svelte";
 
-    const t9 = {
+    const dispatch = createEventDispatcher();
+
+    const t9codes = {
         1: "_",
         2: "ABC",
         3: "DEF",
@@ -13,64 +15,57 @@
         9: "WXYZ",
     };
 
-    let code = "";
+    let t9 = "";
 
     function addNumber(n) {
         if (n != 1) {
-            code += n;
+            t9 += n;
+            update();
         }
     }
     function removeNumber() {
-        code = code.substring(0, code.length - 1);
+        t9 = t9.substring(0, t9.length - 1);
+        update();
+    }
+
+    function update() {
+        dispatch("update:t9", { t9 });
     }
 </script>
 
-<div class="navbar bg-base-100 shadow">
-    <div class="navbar-start">
-        <a class="btn btn-square btn-ghost text-xl" href="/">
-            <i class="fal fa-long-arrow-left"></i>
-        </a>
-    </div>
-    <div class="navbar-center"></div>
-    <div class="navbar-end"></div>
-</div>
-
-<div class="flex justify-center items-center flex-col">
-    <div
-        class="artboard phone-1 demo text-center flex flex-col overflow-hidden !h-[450px] mt-8 mb-8"
+<div
+    class="artboard phone-1 demo text-center flex flex-col overflow-hidden !h-[450px] mt-8 mb-8"
+>
+    <label
+        class="input input-bordered flex items-center gap-2 mt-16 w-[90%] min-h-[2rem] ml-auto mr-auto"
     >
-        <label
-            class="input input-bordered flex items-center gap-2 mt-16 w-[90%] min-h-[2rem] ml-auto mr-auto"
-        >
-            <input type="text" class="grow" bind:value={code} />
-            {#if code.length > 0}
-                <button
-                    type="button"
-                    class="btn btn-ghost btn-xs"
-                    on:click={removeNumber}
-                >
-                    <i class="fal fa-backspace"></i>
-                </button>
-            {/if}
-        </label>
+        <input type="text" class="grow" disabled bind:value={t9} />
+        {#if t9.length > 0}
+            <button
+                type="button"
+                class="btn btn-ghost btn-xs"
+                on:click={removeNumber}
+            >
+                <i class="fal fa-backspace"></i>
+            </button>
+        {/if}
+    </label>
 
-        <div class="flex items-end h-full">
-            <div class="grid grid-cols-3 w-full gap-[2rem] p-[2rem]">
-                {#each Object.keys(t9) as key}
-                    <button
-                        class="btn btn-circle btn-outline btn-lg"
-                        on:click={() => {
-                            addNumber(key);
-                        }}
-                    >
-                        {key} <br />
-                        {t9[key]}
-                    </button>
-                {/each}
-            </div>
+    <div class="flex items-end h-full">
+        <div class="grid grid-cols-3 w-full gap-[2rem] p-[2rem]">
+            {#each Object.keys(t9codes) as key}
+                <button
+                    class="btn btn-circle btn-outline btn-lg"
+                    on:click={() => {
+                        addNumber(key);
+                    }}
+                >
+                    {key} <br />
+                    {t9codes[key]}
+                </button>
+            {/each}
         </div>
     </div>
-    <Wordlist bind:t9={code} />
 </div>
 
 <style>
