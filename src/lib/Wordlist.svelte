@@ -1,12 +1,11 @@
 <script>
-    import t9_german from "$lib/t9_german.json";
-
+    export let wordlist = {};
     export let t9;
 </script>
 
 <div class="grid grid-cols-1 gap-8">
-    {#if t9_german[t9]}
-        {#each t9_german[t9] as word, index}
+    {#if wordlist[t9]}
+        {#each wordlist[t9] as word, index}
             <div
                 class="text-center"
                 class:text-9xl={index === 0}

@@ -1,8 +1,12 @@
-import { c as create_ssr_component, e as escape, v as validate_component } from "../../../../chunks/ssr.js";
+import { c as create_ssr_component, o as onDestroy, e as escape, v as validate_component } from "../../../../chunks/ssr.js";
 import { W as Wordlist } from "../../../../chunks/Wordlist.js";
 const Live = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { code } = $$props;
   let data = {};
+  let interval = null;
+  onDestroy(() => {
+    clearInterval(interval);
+  });
   if ($$props.code === void 0 && $$bindings.code && code !== void 0)
     $$bindings.code(code);
   let $$settled;

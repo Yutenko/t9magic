@@ -1,12 +1,12 @@
 <script>
-    import { onMount } from "svelte";
+    import { onMount, onDestroy } from "svelte";
     import Wordlist from "./Wordlist.svelte";
 
     export let code;
 
     const endpoint = `/api?code=${code}`;
 
-    let data = {    };
+    let data = {};
 
     async function poll() {
         const response = await fetch(endpoint);
@@ -16,15 +16,13 @@
     }
 
     let interval = null;
-
     onMount(async () => {
         poll();
-        setInterval(poll, 1000);
-        return () => {
-            if (interval) {
-                clearInterval(interval);
-            }
-        };
+        interval = setInterval(poll, 1000);
+    });
+
+    onDestroy(() => {
+        clearInterval(interval);
     });
 </script>
 
