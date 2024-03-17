@@ -1,7 +1,7 @@
 <script>
     import { onMount, onDestroy } from "svelte";
 
-    let endpoint = `/api`;
+    let endpoint = `/apifix`;
 
     let livecodes = [];
 
