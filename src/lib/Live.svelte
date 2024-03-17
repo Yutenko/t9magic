@@ -4,7 +4,7 @@
 
     export let code;
 
-    const endpoint = `/api?code=${code}`;
+    const endpoint = `/apifix?code=${code}`;
 
     let data = {};
 

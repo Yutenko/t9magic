@@ -8,7 +8,7 @@
         t9 = e.detail.t9;
 
         var code = $page.data.code;
-        fetch("/api", {
+        fetch("/apifix", {
             method: "POST",
             body: JSON.stringify({ t9, code }),
         });
