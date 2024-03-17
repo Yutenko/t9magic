@@ -10,7 +10,6 @@ export async function GET({ url }) {
 
     if (code) {
         const filepath = path.join(
-            process.cwd(),
             'static',
             'uploads',
             `${code}.json`
@@ -20,7 +19,6 @@ export async function GET({ url }) {
     }
 
     const filepath = path.join(
-        process.cwd(),
         'static',
         'uploads'
     )
@@ -37,7 +35,6 @@ export async function POST({ request }) {
 
     if (body.code) {
         const filepath = path.join(
-            process.cwd(),
             'static',
             'uploads',
             `${body.code}.json`
