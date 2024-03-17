@@ -11,7 +11,7 @@ export async function GET({ url }) {
     if (code) {
         const filepath = path.join(
             process.cwd(),
-            'static',
+            'public',
             'uploads',
             `${code}.json`
         )
@@ -21,7 +21,7 @@ export async function GET({ url }) {
 
     const filepath = path.join(
         process.cwd(),
-        'static',
+        'public',
         'uploads'
     )
     const filenames = await fs.promises.readdir(filepath)
@@ -38,7 +38,7 @@ export async function POST({ request }) {
     if (body.code) {
         const filepath = path.join(
             process.cwd(),
-            'static',
+            'public',
             'uploads',
             `${body.code}.json`
         )
