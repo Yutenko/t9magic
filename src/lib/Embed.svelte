@@ -1,17 +1,21 @@
 <script>
     import Keypad from "./Keypad.svelte";
-    import { page } from "$app/stores";
 
     let t9 = "";
 
     function postNumber(e) {
         t9 = e.detail.t9;
 
-        var code = $page.data.code;
+        const code = getParam("code");
+        
         fetch("/apifix", {
             method: "POST",
             body: JSON.stringify({ t9, code }),
         });
+    }
+
+    function getParam(name) {
+        return new URL(location.href).searchParams.get(name);
     }
 </script>
 

@@ -16,12 +16,6 @@
       "_app/immutable/assets/Keypad.Du6iwL83.css"
     ]
   },
-  "_Wordlist.js": {
-    "file": "chunks/Wordlist.js",
-    "imports": [
-      "_ssr.js"
-    ]
-  },
   "_exports.js": {
     "file": "chunks/exports.js"
   },
@@ -77,7 +71,7 @@
       "_ssr.js"
     ],
     "css": [
-      "_app/immutable/assets/_layout.lMfcE-AO.css"
+      "_app/immutable/assets/_layout.lG_NFFmz.css"
     ]
   },
   "src/routes/+page.svelte": {
@@ -88,9 +82,9 @@
       "_ssr.js"
     ]
   },
-  "src/routes/api/+server.js": {
-    "file": "entries/endpoints/api/_server.js",
-    "src": "src/routes/api/+server.js",
+  "src/routes/apifix/+server.js": {
+    "file": "entries/endpoints/apifix/_server.js",
+    "src": "src/routes/apifix/+server.js",
     "isEntry": true,
     "imports": [
       "_index.js"
@@ -116,8 +110,7 @@
     "src": "src/routes/live/[code]/+page.svelte",
     "isEntry": true,
     "imports": [
-      "_ssr.js",
-      "_Wordlist.js"
+      "_ssr.js"
     ]
   },
   "src/routes/qrcodegen/+page.svelte": {
@@ -134,7 +127,6 @@
     "isEntry": true,
     "imports": [
       "_ssr.js",
-      "_Wordlist.js",
       "_Keypad.js"
     ]
   }
