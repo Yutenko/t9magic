@@ -1,11 +1,12 @@
 <script>
-    import { QRCode } from "@castlenine/svelte-qrcode";
+    import { QRCodeImage } from "svelte-qrcode-image";
     import html2canvas from "html2canvas-pro";
 
     const DOMAIN = "https://zauberwilli.de";
 
     let qrcodes = [];
     let currentCodeIndex = 0;
+    $: currentItem = qrcodes[currentCodeIndex];
 
     function generate4DigitPin() {
         return Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
@@ -66,7 +67,9 @@
     {#if qrcodes.length > 0}
         <div class="flex flex-row justify-center items-center">
             <div class="card card-compact w-96">
-                <div class="card-body">
+                <div
+                    class="card-body justify-center text-center ml-auto mr-auto"
+                >
                     {#if qrcodes.length > 1}
                         <button
                             class="absolute left-0 btn btn-square z-10"
@@ -75,14 +78,19 @@
                             <i class="fal fa-chevron-left"></i>
                         </button>
                     {/if}
-                    <div id="qr-code" style="margin:0 auto">
-                        <QRCode
-                            size={300}
-                            content={qrcodes[currentCodeIndex].url}
-                        ></QRCode>
-                        <h2 class="text-xl text-center">
-                            {qrcodes[currentCodeIndex].pin}
-                        </h2>
+                    <div id="qr-code">
+                        {#if currentItem}
+                            <div class="flex justify-center">
+                                <QRCodeImage
+                                    text={currentItem.url}
+                                    width="300"
+                                    scale="10"
+                                />
+                            </div>
+                            <p class="m-4">
+                                {currentItem.pin}
+                            </p>
+                        {/if}
                     </div>
                     {#if qrcodes.length > 1}
                         <button
@@ -92,11 +100,11 @@
                             <i class="fal fa-chevron-right"></i>
                         </button>
                     {/if}
-                    <div class="card-actions justify-end">
-                        <button class="btn btn-primary" on:click={printQRCode}
-                            >Drucken</button
-                        >
-                    </div>
+                </div>
+                <div class="card-actions justify-end">
+                    <button class="btn btn-primary" on:click={printQRCode}
+                        >Drucken</button
+                    >
                 </div>
             </div>
         </div>

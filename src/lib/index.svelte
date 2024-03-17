@@ -1,12 +1,9 @@
 <script>
     import { onMount, onDestroy } from "svelte";
-    import { fetchWithProgress } from "./shared.js";
 
     let endpoint = `/api`;
 
     let livecodes = [];
-    let wordlistLoading = true;
-    $: progress = 0;
 
     async function poll() {
         const response = await fetch(endpoint);
@@ -15,23 +12,8 @@
         livecodes = data.codes;
     }
 
-    async function loadWordlist() {
-        // Example usage
-        fetchWithProgress("/t9_german.json", (loaded, total) => {
-            progress = parseInt((loaded * 100) / total);
-            console.log(progress);
-        })
-            .then((result) => {
-                wordlistLoading = false;
-            })
-            .catch((error) => {
-                console.error("Download failed:", error);
-            });
-    }
-
     let interval = null;
     onMount(async () => {
-        loadWordlist();
         poll();
         interval = setInterval(poll, 1000);
     });
@@ -53,15 +35,5 @@
 
 <div class="absolute right-5 bottom-5">
     <a class="btn btn-ghost" href="/qrcodegen">QR</a>
-    {#if wordlistLoading}
-        <div
-            class="radial-progress"
-            style="--value:{progress};"
-            role="progressbar"
-        >
-            {progress}%
-        </div>
-    {:else}
-        <a class="btn btn-ghost" href="/wordgen">WORDGEN</a>
-    {/if}
+    <a class="btn btn-ghost" href="/wordgen">WORDGEN</a>
 </div>

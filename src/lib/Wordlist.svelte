@@ -1,5 +1,5 @@
 <script>
-    export let wordlist = {};
+    export let wordlist;
     export let t9;
 </script>
 
